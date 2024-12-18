@@ -1,5 +1,8 @@
 package com.coderscampus;
 
+import com.coderscampus.CustomArrayList;
+import com.coderscampus.CustomList;
+
 public class CustomArrayListApp {
     public static void main(String[] args) {
         example2();
@@ -25,7 +28,7 @@ public class CustomArrayListApp {
 
         CustomList<String> names = new CustomArrayList<>();
         for (String s : nameArray) {
-            names.add(index, s);
+            names.add(s);
         }
         for (int i = 0; i < names.getSize(); i++) {
             System.out.println(names.get(i));
@@ -40,7 +43,7 @@ public class CustomArrayListApp {
         CustomList<Integer> numbers = new CustomArrayList<>();
         // Add objects to CustomArrayList
         for (int i = 1; i <= 40; i++) {
-            numbers.add(index, i);
+            numbers.add(i);
         }
         // Get object at index in CustomArrayList
         for (int i = 0; i < numbers.getSize(); i++) {
@@ -51,4 +54,3 @@ public class CustomArrayListApp {
         System.out.println(numbers.get(numbers.getSize() - 1));
     }
 }
-

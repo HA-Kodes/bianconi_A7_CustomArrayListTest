@@ -1,25 +1,26 @@
-package com.coderscampus;
+package com.coderscampus.tests;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
-@SuppressWarnings("unchecked")
+import com.coderscampus.CustomArrayList;
+import com.coderscampus.CustomList;
+
 class CustomArrayListTest<T> {
 
     private CustomList<T> sut;
-    private Integer index;
 
     @BeforeEach
-    void init() {
+    void setUp() {
         sut = new CustomArrayList<>();
     }
 
     void populate(Integer amount) {
         for (Integer i = 0; i < amount; i++) {
-            Integer index = null;
-            sut.add(index, (T) i);
+            sut.add((T) i);
         }
         assertEquals(amount, sut.getSize());
     }
@@ -28,37 +29,45 @@ class CustomArrayListTest<T> {
         Integer originalSize = sut.getSize();
         sut.add(index, value);
 
-        for (int i = 0; i < sut.getSize(); i++) {
+        assertEquals(value, sut.get(index));
+        assertEquals(originalSize + 1, sut.getSize());
+
+        for (int i = 0; i < originalSize; i++) {
             if (i < index) {
                 assertEquals(i, sut.get(i));
-            } else if (i == index) {
-                assertEquals(sut.get(i), value);
             } else {
-                assertEquals(sut.get(i), i - 1);
+                assertEquals(i, sut.get(i + 1));
             }
         }
-
-        assertEquals(originalSize + 1, sut.getSize());
     }
 
     void checkArrayRemove(Integer index) {
         Integer originalSize = sut.getSize();
-        assertEquals(sut.get(index), index);
+        T removedElement = sut.get(index);
         sut.remove(index);
-        assertEquals(sut.get(index), index + 1);
-        assertEquals(sut.getSize(), originalSize - 1);
+        assertEquals(originalSize - 1, sut.getSize());
+
+        for (int i = 0; i < sut.getSize(); i++) {
+            if (i < index) {
+                assertEquals(i, sut.get(i));
+            } else {
+                assertEquals(i + 1, sut.get(i));
+            }
+        }
+
+        assertThrows(IndexOutOfBoundsException.class, () -> sut.get(originalSize - 1));
     }
 
     @Test
     void should_add_one_number_to_list() {
-        sut.add(index, (T) (Integer) 10);
+        sut.add((T) (Integer) 10);
         assertEquals(10, sut.get(0));
         assertEquals(1, sut.getSize());
     }
 
     @Test
     void should_add_one_string_to_list() {
-        sut.add(index, (T) "hello");
+        sut.add((T) "hello");
         assertEquals("hello", sut.get(0));
         assertEquals(1, sut.getSize());
     }
@@ -79,7 +88,7 @@ class CustomArrayListTest<T> {
 
     @Test
     void should_add_null() {
-        sut.add(index, null);
+        sut.add(null);
         assertEquals(1, sut.getSize());
     }
 
@@ -109,11 +118,12 @@ class CustomArrayListTest<T> {
         @Test
         void should_add_multiple_indexed_items_to_list() {
             Integer originalSize = sut.getSize();
+
             sut.add(7, (T) (Integer) 22);
             sut.add(11, (T) (Integer) 99);
 
-            assertEquals(sut.get(7), 22);
-            assertEquals(sut.get(11), 99);
+            assertEquals(22, sut.get(7));
+            assertEquals(99, sut.get(11));
             assertEquals(originalSize + 2, sut.getSize());
         }
 
@@ -130,9 +140,9 @@ class CustomArrayListTest<T> {
         @Test
         void should_remove_item_from_end_of_list() {
             Integer originalSize = sut.getSize();
-            assertEquals(sut.get(originalSize - 1), originalSize - 1);
+            assertEquals((T) (Integer) (originalSize - 1), sut.get(originalSize - 1));
             sut.remove(originalSize - 1);
-            assertEquals(sut.getSize(), originalSize - 1);
+            assertEquals(originalSize - 1, sut.getSize());
         }
 
         @Test
