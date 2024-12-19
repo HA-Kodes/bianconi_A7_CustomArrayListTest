@@ -1,7 +1,5 @@
-package com.coderscampus.arraylist;
+package com.coderscampus;
 
-import com.coderscampus.CustomArrayList;
-import com.coderscampus.CustomList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,14 +12,14 @@ public class CustomArrayListTestFinal {
     // Test-Driven Development Methodology
     // Step 1 - Write a failing test
     // Step 2 - Write the business logic to make the test pass
-    // Step 3 - Refactor your code
+    // Step 3 - Refactor lines of code
     // Step 4 - repeat
 
     // Three A's
     // Arrange, Act, Assert
 
     // Arrange
-    private CustomList<Object> sut = new CustomArrayList<>(); // sut = system under test
+    private final CustomList<Object> sut = new CustomArrayList<>(); // sut = system under test
     // (the variable in which you are acting on)
 
     @BeforeEach
@@ -52,7 +50,6 @@ public class CustomArrayListTestFinal {
 
     @Test
     void should_add_item_at_index() {
-
         sut.add(1000);
         sut.add(2000);
 
@@ -80,7 +77,6 @@ public class CustomArrayListTestFinal {
         sut.add("begin");
         sut.add("middle");
         sut.add("end");
-
 
         assertEquals("end", sut.remove(2));
     }
@@ -117,3 +113,4 @@ public class CustomArrayListTestFinal {
         assertThrows(IndexOutOfBoundsException.class, () -> sut.add(3, Optional.of(3)), "Throws IndexOutOfBoundsException");
     }
 }
+

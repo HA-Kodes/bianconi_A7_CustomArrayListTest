@@ -9,7 +9,7 @@ public class CustomArrayListApp {
 
     private static void example2() {
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        System.out.println("");
+        System.out.println();
         String[] nameArray = {
                 "Bonjour - ",
                 "Monsieur Gallaccio!",
@@ -32,7 +32,7 @@ public class CustomArrayListApp {
 
         }
         System.out.println(names.getSize());
-        System.out.println("");
+        System.out.println();
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
 
