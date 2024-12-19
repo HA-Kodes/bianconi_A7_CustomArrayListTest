@@ -140,7 +140,7 @@ class CustomArrayListTest<T> {
         @Test
         void should_remove_item_from_end_of_list() {
             Integer originalSize = sut.getSize();
-            assertEquals(originalSize - 1, sut.get(originalSize - 1));
+            assertEquals((Integer) (originalSize - 1), sut.get(originalSize - 1));
             sut.remove(originalSize - 1);
             assertEquals(originalSize - 1, sut.getSize());
         }

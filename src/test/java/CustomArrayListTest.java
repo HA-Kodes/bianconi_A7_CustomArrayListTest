@@ -1,13 +1,27 @@
 package com.coderscampus;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+import com.coderscampus.CustomArrayList;
+import com.coderscampus.CustomList;
 
 @SuppressWarnings("unchecked")
-class CustomArrayListTest<T> {
+public class CustomArrayListTest<T> {
 
+    // Test-Driven Development Methodology
+    // Step 1 - Write a failing test
+    // Step 2 - Write the business logic to make the test pass
+    // Step 3 - Refactor lines of code
+    // Step 4 - repeat
+
+    // Three A's
+    // Arrange, Act, Assert
+
+    // Arrange
     private CustomList<T> sut;
     private Integer index;
 
@@ -16,6 +30,7 @@ class CustomArrayListTest<T> {
         sut = new CustomArrayList<>();
     }
 
+    // Act
     void populate(Integer amount) {
         for (Integer i = 0; i < amount; i++) {
             Integer index = null;
@@ -24,6 +39,7 @@ class CustomArrayListTest<T> {
         assertEquals(amount, sut.getSize());
     }
 
+    // Act
     void checkArrayAdd(Integer index, T value) {
         Integer originalSize = sut.getSize();
         sut.add(index, value);

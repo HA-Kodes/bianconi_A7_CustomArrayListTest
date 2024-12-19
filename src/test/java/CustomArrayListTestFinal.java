@@ -113,4 +113,3 @@ public class CustomArrayListTestFinal {
         assertThrows(IndexOutOfBoundsException.class, () -> sut.add(3, Optional.of(3)), "Throws IndexOutOfBoundsException");
     }
 }
-
