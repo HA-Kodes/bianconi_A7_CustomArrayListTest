@@ -1,8 +1,5 @@
 package com.coderscampus;
 
-import com.coderscampus.CustomArrayList;
-import com.coderscampus.CustomList;
-
 public class CustomArrayListApp {
     public static void main(String[] args) {
         example2();

@@ -72,8 +72,8 @@ class CustomArrayListTest<T> {
     }
 
     @Test
-    void should_add_item_to_middle_with_under_10_elements() {
-        populate(9);
+    void should_add_item_to_middle_with_under_20_elements() {
+        populate(5);
         checkArrayAdd(5, (T) (Integer) 19);
     }
 
@@ -93,7 +93,7 @@ class CustomArrayListTest<T> {
 
         @Test
         void should_add_item_to_middle_with_over_10_elements() {
-            checkArrayAdd(7, (T) (Integer) 22);
+            checkArrayAdd(7, (T) (Integer) 21);
         }
 
         @Test

@@ -1,15 +1,13 @@
-public package com.coderscampus.tests;
+package com.coderscampus;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-        import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import com.coderscampus.CustomArrayList;
-import com.coderscampus.CustomList;
 
-class CustomArrayListTest<T> {
+class CustomArrayListTestMe<T> {
 
     private CustomList<T> sut;
 
