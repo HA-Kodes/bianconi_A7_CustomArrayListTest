@@ -13,7 +13,7 @@ public interface CustomList<T> {
 
     boolean add(T item);
 
-    void add(int index, T element);
+    boolean add(int index, T element);
 
     /**
      * This method should return the size of the <code>CustomList</code>
@@ -30,6 +30,6 @@ public interface CustomList<T> {
      */
     T get(int index);
 
-    void remove(Integer index);
+    short remove(Integer index);
 }
 

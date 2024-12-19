@@ -80,7 +80,7 @@ public class CustomArrayList<T> implements CustomList<T> {
     }
 
     @Override
-    public void add(int index, T element) {
+    public boolean add(int index, T element) {
         if (index > size || index < 0) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
         }
@@ -91,6 +91,7 @@ public class CustomArrayList<T> implements CustomList<T> {
         items[index] = element;
         size++;
         printArrayState("After adding element");
+        return false;
     }
 
     public Object[] doubleSizeOfBackingArray() {
@@ -114,7 +115,7 @@ public class CustomArrayList<T> implements CustomList<T> {
     }
 
     @Override
-    public void remove(Integer index) {
+    public short remove(Integer index) {
         if (index >= size || index < 0) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
         }
@@ -122,9 +123,14 @@ public class CustomArrayList<T> implements CustomList<T> {
         items[size - 1] = null;
         size--;
         printArrayState("After removing element");
+        return 0;
     }
 
     private void printArrayState(String message) {
         System.out.println(message + ": " + java.util.Arrays.toString(items));
+    }
+
+    public int getBackingArrayLength() {
+        return (getBackingArrayLength());
     }
 }
