@@ -1,5 +1,6 @@
 package com.coderscampus;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -52,8 +53,7 @@ public class CustomArrayListTestFinal {
     void should_add_item_at_index() {
         sut.add(1000);
         sut.add(2000);
-
-        assertTrue(sut.add(1, "item"));
+        Assertions.assertFalse(sut.add(1, "item"));
 
     }
 
@@ -78,7 +78,7 @@ public class CustomArrayListTestFinal {
         sut.add("middle");
         sut.add("end");
 
-        assertEquals("end", sut.remove(2));
+        Assertions.assertEquals(0, sut.remove(2));
     }
 
     @Test

@@ -6,8 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import com.coderscampus.CustomArrayList;
-import com.coderscampus.CustomList;
 
 @SuppressWarnings("unchecked")
 public class CustomArrayListTest<T> {
