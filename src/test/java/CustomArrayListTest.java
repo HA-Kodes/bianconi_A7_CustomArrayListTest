@@ -33,8 +33,7 @@ public class CustomArrayListTest {
     // Act
     void populate(Integer amount) {
         for (Integer i = 0; i < amount; i++) {
-            Integer index = null;
-            sut.add(index, i);
+            sut.add(i);
         }
         assertEquals(amount, sut.getSize());
     }
@@ -95,8 +94,9 @@ public class CustomArrayListTest {
 
     @Test
     void should_add_null() {
-        sut.add(index, null);
+        sut.add(null);
         assertEquals(1, sut.getSize());
+        assertEquals(null, sut.get(0));
     }
 
     @Nested
