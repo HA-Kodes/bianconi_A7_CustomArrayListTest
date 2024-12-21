@@ -27,11 +27,11 @@ public class CustomArrayListApp {
         for (String s : nameArray) {
             names.add(s);
         }
-        for (int i = 0; i < names.getSize(); i++) {
+        for (int i = 0; i < names.getSize("Test message"); i++) {
             System.out.println(names.get(i));
 
         }
-        System.out.println(names.getSize());
+        System.out.println(names.getSize("Test message"));
         System.out.println();
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
@@ -43,11 +43,11 @@ public class CustomArrayListApp {
             numbers.add(i);
         }
         // Get object at index in CustomArrayList
-        for (int i = 0; i < numbers.getSize(); i++) {
+        for (int i = 0; i < numbers.getSize("Test message"); i++) {
             System.out.println(numbers.get(i));
         }
-        System.out.println(numbers.getSize());
+        System.out.println(numbers.getSize("Test message"));
         // Access the last element correctly
-        System.out.println(numbers.get(numbers.getSize() - 1));
+        System.out.println(numbers.get(numbers.getSize("Test message") - 1));
     }
 }
