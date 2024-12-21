@@ -65,7 +65,7 @@ public class CustomArrayList<T> implements CustomList<T> {
     int size = 0;
 
     @Override
-    public boolean add(Integer index, T item) {
+    public boolean add(int index, T item) {
         if (size == items.length) {
             items = doubleSizeOfBackingArray();
         }
@@ -79,20 +79,20 @@ public class CustomArrayList<T> implements CustomList<T> {
         return false;
     }
 
-    @Override
-    public boolean add(int index, T element) {
-        if (index > size || index < 0) {
-            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
-        }
-        if (size == items.length) {
-            items = doubleSizeOfBackingArray();
-        }
-        System.arraycopy(items, index, items, index + 1, size - index);
-        items[index] = element;
-        size++;
-        printArrayState("After adding element");
-        return false;
-    }
+//    @Override
+//    public boolean add(int index, T element) {
+//        if (index > size || index < 0) {
+//            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+//        }
+//        if (size == items.length) {
+//            items = doubleSizeOfBackingArray();
+//        }
+//        System.arraycopy(items, index, items, index + 1, size - index);
+//        items[index] = element;
+//        size++;
+//        printArrayState("After adding element");
+//        return false;
+//    }
 
     public Object[] doubleSizeOfBackingArray() {
         Object[] newArray = new Object[size * 2];

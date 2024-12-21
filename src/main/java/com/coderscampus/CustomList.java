@@ -6,14 +6,16 @@ public interface CustomList<T> {
      * return <code>true</code> if it was successfully able to insert an item.
      *
      * @param index
-     * @param item  the item to be added to the <code>CustomList</code>
+     * @param element  the item to be added to the <code>CustomList</code>
      * @return <code>true</code> if item was successfully added, <code>false</code> if the item was not successfully added (note: it should always be able to add an item to the list)
      */
-    boolean add (Integer index, T item);
+    boolean add(int index, T element);
+
+//    boolean add (Integer index, T item);
 
     boolean add(T item);
 
-    boolean add(int index, T element);
+
 
     /**
      * This method should return the size of the <code>CustomList</code>

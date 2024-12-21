@@ -10,7 +10,7 @@ import com.coderscampus.CustomArrayList;
 import com.coderscampus.CustomList;
 
 @SuppressWarnings("unchecked")
-public class CustomArrayListTest<T> {
+public class CustomArrayListTest {
 
     // Test-Driven Development Methodology
     // Step 1 - Write a failing test
@@ -22,7 +22,7 @@ public class CustomArrayListTest<T> {
     // Arrange, Act, Assert
 
     // Arrange
-    private CustomList<T> sut;
+    private CustomList<Integer> sut;
     private Integer index;
 
     @BeforeEach
@@ -34,13 +34,13 @@ public class CustomArrayListTest<T> {
     void populate(Integer amount) {
         for (Integer i = 0; i < amount; i++) {
             Integer index = null;
-            sut.add(index, (T) i);
+            sut.add(index, i);
         }
         assertEquals(amount, sut.getSize());
     }
 
     // Act
-    void checkArrayAdd(Integer index, T value) {
+    void checkArrayAdd(Integer index, Integer value) {
         Integer originalSize = sut.getSize();
         sut.add(index, value);
 
@@ -67,15 +67,15 @@ public class CustomArrayListTest<T> {
 
     @Test
     void should_add_one_number_to_list() {
-        sut.add(index, (T) (Integer) 10);
+        sut.add(10);
         assertEquals(10, sut.get(0));
         assertEquals(1, sut.getSize());
     }
 
     @Test
     void should_add_one_string_to_list() {
-        sut.add(index, (T) "hello");
-        assertEquals("hello", sut.get(0));
+        sut.add(20);
+        assertEquals(20, sut.get(0));
         assertEquals(1, sut.getSize());
     }
 
@@ -90,7 +90,7 @@ public class CustomArrayListTest<T> {
     @Test
     void should_add_item_to_middle_with_under_20_elements() {
         populate(5);
-        checkArrayAdd(5, (T) (Integer) 19);
+        checkArrayAdd(5, 19);
     }
 
     @Test
@@ -109,24 +109,25 @@ public class CustomArrayListTest<T> {
 
         @Test
         void should_add_item_to_middle_with_over_10_elements() {
-            checkArrayAdd(7, (T) (Integer) 21);
+            checkArrayAdd(7, 21);
         }
 
         @Test
         void should_add_item_to_beginning_of_list() {
-            checkArrayAdd(0, (T) (Integer) 22);
+//            checkArrayAdd(0, (T) (Integer) 22);
+            sut.add(0);
         }
 
         @Test
         void should_add_item_to_end_of_list() {
-            checkArrayAdd(sut.getSize(), (T) (Integer) 22);
+            checkArrayAdd(sut.getSize(), 22);
         }
 
         @Test
         void should_add_multiple_indexed_items_to_list() {
             Integer originalSize = sut.getSize();
-            sut.add(7, (T) (Integer) 22);
-            sut.add(11, (T) (Integer) 99);
+            sut.add((int) 7, 22);
+            sut.add(11, 99);
 
             assertEquals(sut.get(7), 22);
             assertEquals(sut.get(11), 99);
@@ -168,7 +169,7 @@ public class CustomArrayListTest<T> {
 
     @Test
     void should_throw_index_out_of_bounds_exception() {
-        assertThrows(IndexOutOfBoundsException.class, () -> sut.add(80, (T) "error"));
+        assertThrows(IndexOutOfBoundsException.class, () -> sut.add(80,  100));
         assertThrows(IndexOutOfBoundsException.class, () -> sut.remove(80));
     }
 }
