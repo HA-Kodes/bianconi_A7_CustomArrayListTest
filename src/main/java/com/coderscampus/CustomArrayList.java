@@ -61,7 +61,7 @@ public class CustomArrayList<T> implements CustomList<T> {
         return 0;
     }
 
-    private void printArrayState(String message) {
+    public void printArrayState(String message) {
         System.out.println(message + ": " + java.util.Arrays.toString(items));
     }
 }
