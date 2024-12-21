@@ -10,7 +10,7 @@ import com.coderscampus.CustomArrayList;
 import com.coderscampus.CustomList;
 
 @SuppressWarnings("unchecked")
-public class CustomArrayListTest {
+public class CustomArrayListTest<T> {
 
     // Test-Driven Development Methodology
     // Step 1 - Write a failing test
@@ -68,13 +68,6 @@ public class CustomArrayListTest {
     void should_add_one_number_to_list() {
         sut.add(10);
         assertEquals(10, sut.get(0));
-        assertEquals(1, sut.getSize());
-    }
-
-    @Test
-    void should_add_one_string_to_list() {
-        sut.add(20);
-        assertEquals(20, sut.get(0));
         assertEquals(1, sut.getSize());
     }
 

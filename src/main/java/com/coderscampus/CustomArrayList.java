@@ -124,8 +124,4 @@ public class CustomArrayList<T> implements CustomList<T> {
     private void printArrayState(String message) {
         System.out.println(message + ": " + java.util.Arrays.toString(items));
     }
-
-    public int getBackingArrayLength() {
-        return (getBackingArrayLength());
-    }
 }
