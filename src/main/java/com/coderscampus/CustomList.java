@@ -33,5 +33,7 @@ public interface CustomList<T> {
     short remove(Integer index);
 
     T remove(int index);
+
+    int getSize();
 }
 
