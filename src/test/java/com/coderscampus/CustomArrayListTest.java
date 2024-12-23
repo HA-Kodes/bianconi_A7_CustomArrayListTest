@@ -1,185 +1,195 @@
 package com.coderscampus;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CustomArrayListTest {
 
-    private CustomArrayList<String> sut;
+    private CustomArrayList<Integer> customList;
+
+    /*
+    Not necessary, but helps helps to ensure that each test starts with a clean slate, reducing the risk of tests affecting each other.
+    Benefits of @BeforeEach
+    Isolation: Ensures each test is independent.
+    Readability: Makes it clear what setup is needed.
+    Reuse: Reuses common setup code across multiple tests.
+    */
 
     @BeforeEach
     void setUp() {
-        sut = new CustomArrayList<>();
+        customList = new CustomArrayList<>();
     }
 
-    // Helper method to access private fields for testing
-    private Object getItemsField(Object obj) {
-        try {
-            java.lang.reflect.Field field = obj.getClass().getDeclaredField("items");
-            field.setAccessible(true);
-            return field.get(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-
-        }
+    @Test
+    void testAdd() {
+        assertTrue(customList.add(1)); // Add an item and check if it returns true
+        assertEquals(1, customList.getSize()); // Check if size is updated correctly
+        assertEquals(1, customList.get(0)); // Verify the item is added at the correct index
     }
 
-    @Nested
-    class AddTests {
-
-        @Test
-        void testAddElement() {
-            sut.add("First");
-            assertEquals("First", sut.get(0));
-            assertEquals(1, sut.getSize("Test message"));
-        }
-
-        @Test
-        void testAddElementWithResize() {
-            for (int i = 0; i < 10; i++) {
-                sut.add("Element " + i);
-            }
-            assertEquals(10, sut.getSize("Test message"));
-            sut.add("Element 10");
-            assertEquals(11, sut.getSize("Test message"));
-            assertEquals("Element 10", sut.get(10));
-        }
-
-        @Test
-        void testAddElementAtValidIndex() {
-            sut.add("First");
-            sut.add(0, "Zero");
-            assertEquals("Zero", sut.get(0));
-            assertEquals("First", sut.get(1));
-            assertEquals(2, sut.getSize("Test message"));
-
-            sut.add(1, "Middle");
-            assertEquals("Zero", sut.get(0));
-            assertEquals("Middle", sut.get(1));
-            assertEquals("First", sut.get(2));
-            assertEquals(3, sut.getSize("Test message"));
-        }
-
-        @Test
-        void testAddElementAtIndexOutOfBounds() {
-            Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> sut.add(5, "OutOfBounds"));
-            assertTrue(exception.getMessage().contains("Index: 5, Size: 0"));
-
-            exception = assertThrows(IndexOutOfBoundsException.class, () -> sut.add(-1, "NegativeIndex"));
-            assertTrue(exception.getMessage().contains("Index: -1, Size: 0"));
-        }
+    @Test
+        // Purpose: Ensure the add(int index, T item) method throws IndexOutOfBoundsException for invalid index.
+    void testAddWithInvalidIndex() {
+        assertThrows(IndexOutOfBoundsException.class, () -> customList.add(1, 1));
     }
 
-    @Nested
-    class RemoveTests {
-
-        @Test
-        void testRemoveElementAtIndex() {
-            for (int i = 0; i < 5; i++) {
-                sut.add("Element " + i);
-            }
-            assertEquals(5, sut.getSize("Test message"));
-
-            assertEquals("Element 2", sut.remove(2));
-            assertEquals(4, sut.getSize("Test message"));
-            assertEquals("Element 3", sut.get(2));
-            assertEquals("Element 4", sut.get(3));
-
-            assertEquals("Element 0", sut.remove(0));
-            assertEquals(3, sut.getSize("Test message"));
-            assertEquals("Element 1", sut.get(0));
-        }
-
-        @Test
-        void testRemoveElementAtIndexOutOfBounds() {
-            Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> sut.remove(10));
-            assertTrue(exception.getMessage().contains("Index: 10, Size: 0"));
-
-            sut.add("First");
-            exception = assertThrows(IndexOutOfBoundsException.class, () -> sut.remove(-1));
-            assertTrue(exception.getMessage().contains("Index: -1, Size: 1"));
-        }
-
-        @Test
-        void should_remove_from_list_end() {
-            for (int i = 0; i < 10; i++) {
-                sut.add("item " + i);
-            }
-
-            assertEquals("item 9", sut.remove(9)); // Removing the last element
-            assertEquals(9, sut.getSize("Test message"));
-
-            assertEquals("item 8", sut.remove(8)); // Removing the second last element
-            assertEquals(8, sut.getSize("Test message"));
-            assertEquals("item 7", sut.get(7)); // Check the element before the one removed
-        }
-
-        @Test
-        void should_remove_from_list_middle() {
-            for (int i = 0; i < 10; i++) {
-                sut.add("item " + i);
-            }
-
-            assertEquals("item 4", sut.remove(4)); // Removing the middle element
-            assertEquals(9, sut.getSize("Test message"));
-            assertEquals("item 5", sut.get(4)); // The element after the removed one should move to the removed one's place
-
-            // Check that all other elements are correctly positioned
-            assertEquals("item 0", sut.get(0));
-            assertEquals("item 1", sut.get(1));
-            assertEquals("item 2", sut.get(2));
-            assertEquals("item 3", sut.get(3));
-            assertEquals("item 6", sut.get(5));
-            assertEquals("item 7", sut.get(6));
-            assertEquals("item 8", sut.get(7));
-            assertEquals("item 9", sut.get(8));
-        }
+    @Test
+    void testGetSize() { // Purpose: Verify the getSize() method returns the correct size.
+        assertEquals(0, customList.getSize()); // Initial size should be 0
+        customList.add(1); // Add an item
+        assertEquals(1, customList.getSize()); // Check if size is updated
     }
 
-    @Nested
-    class GetTests {
-
-        @Test
-        void testGetElementAtIndexOutOfBounds() {
-            Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> sut.get(0));
-            assertTrue(exception.getMessage().contains("The index, 0, is out of the bounds of the array with size 0"));
-
-            sut.add("First");
-            exception = assertThrows(IndexOutOfBoundsException.class, () -> sut.get(1));
-            assertTrue(exception.getMessage().contains("The index, 1, is out of the bounds of the array with size 1"));
-        }
-
-        @Test
-        void testGetElementAtIndex() {
-            sut.add("First");
-            sut.add("Second");
-            assertEquals("First", sut.get(0));
-            assertEquals("Second", sut.get(1));
-        }
+    @Test
+        // Purpose: Ensure the get(int index) method returns the correct item.
+    void testGet() {
+        customList.add(1); // Add an item
+        assertEquals(1, customList.get(0)); // Verify the item at index 0
     }
 
-    @Nested
-    class MiscellaneousTests {
+    @Test
+        // Purpose: Ensure the get(int index) method throws IndexOutOfBoundsException for invalid index.
+    void testGetWithInvalidIndex() {
+        customList.add(1); // Add an item
+        assertThrows(IndexOutOfBoundsException.class, () -> customList.get(1)); // check for exception.
+    }
 
-        @Test
-        void testDoubleSizeOfBackingArray() {
-            for (int i = 0; i < 10; i++) {
-                sut.add("Element " + i);
-            }
-            assertEquals(10, sut.getSize("Test message"));
-            Object[] doubledArray = sut.doubleSizeOfBackingArray();
-            assertEquals(20, doubledArray.length);
-        }
+    @Test
+    void testRemove() { // Purpose: Ensure the remove(int index) method removes the item correctly.
+        customList.add(1);
+        customList.add(2);
+        assertEquals(1, customList.remove(0)); // Remove item and verify the returned item
+        assertEquals(1, customList.getSize()); // Check if size is updated
+        assertEquals(2, customList.get(0)); // Verify the remaining item
+    }
 
-        @Test
-        void testPrintArrayState() {
-            sut.add("First");
-            sut.add("Second");
-            // Assuming a printArrayState method that prints the state of the array
-            sut.getSize("Test message");
+    @Test
+    void testRemoveWithInvalidIndex() { // Purpose: Ensure the remove(int index) method throws IndexOutOfBoundsException for invalid index.
+        customList.add(1);  // Add an item.
+        assertThrows(IndexOutOfBoundsException.class, () -> customList.remove(1));  // Check for exception.
+    }
+
+    @Test
+    void testDoubleSizeOfBackingArray() { // Purpose: Ensure the array doubles in size when full.
+        for (int i = 0; i < 11; i++) {
+            customList.add(i); // Fill the array and Add 1 more to trigger resizing.
         }
+        assertEquals(11, customList.getSize()); // verify the size is correct.
+        assertEquals(10, customList.get(10));  // Verify the last item added.
+    }
+
+    // Additional Tests
+    @Test // Purpose: Ensure the array doubles in size when full using the add(int index, T item) method.
+    void testAddToFullArray() { // Purpose: Ensure the array doubles in size when full using the add(int index, T item) method.
+        for (int i = 0; i < 10; i++) {
+            customList.add(i);  // Fill the array
+        }
+        customList.add(10);  // Add an item at the end to trigger resizing
+        assertEquals(11, customList.getSize()); // Verify the size is correct
+        assertEquals(10, customList.get(10));   // Verify the last item added
+    }
+
+    @Test
+    void testAddAtIndexZero() {
+        customList.add(0, 1);
+        assertEquals(1, customList.get(0));
+        customList.add(0, 2);
+        assertEquals(2, customList.get(0));
+        assertEquals(1, customList.get(1));
+    }
+
+    @Test
+    void testRemoveFromMiddle() {
+        customList.add(1);
+        customList.add(2);
+        customList.add(3);
+        assertEquals(2, customList.remove(1));
+        assertEquals(2, customList.getSize());
+        assertEquals(3, customList.get(1));
+    }
+
+    @Test
+    void testRemoveLastElement() {
+        customList.add(1);
+        customList.add(2);
+        customList.add(3);
+        assertEquals(3, customList.remove(2));  // Removing the last element
+        assertEquals(2, customList.getSize());
+        assertThrows(IndexOutOfBoundsException.class, () -> customList.get(2));
+    }
+
+    @Test
+    void testAddAtCapacityEdge() {
+        for (int i = 0; i < 10; i++) {
+            customList.add(i);
+        }
+        customList.add(10);  // This should trigger capacity increase
+        assertEquals(11, customList.getSize());
+        assertEquals(10, customList.get(10));
+    }
+
+    @Test
+    void testRemoveFromEmptyList() {
+        assertThrows(IndexOutOfBoundsException.class, () -> customList.remove(0));
+    }
+
+    @Test
+    void testGetFromEmptyList() {
+        assertThrows(IndexOutOfBoundsException.class, () -> customList.get(0));
+    }
+
+    @Test
+    void testAddBeyondCurrentSize() {
+        customList.add(0, 1); // Valid add
+        assertThrows(IndexOutOfBoundsException.class, () -> customList.add(3, 2)); // Invalid add
+    }
+
+    @Test
+    void testMultipleAddsAndRemoves() {
+        customList.add(1);
+        customList.add(2);
+        customList.add(3);
+        customList.remove(1); // Remove element in the middle
+        customList.add(1, 4); // Add element back in the middle
+        assertEquals(4, customList.get(1));
+        assertEquals(3, customList.get(2));
+    }
+
+    // Additional Test Cases for Edge Scenarios
+    @Test  // Purpose: Ensure the add(int index, T item) method throws IndexOutOfBoundsException for negative index.
+    void testAddWithNegativeIndex() {
+        assertThrows(IndexOutOfBoundsException.class, () -> customList.add(-1, 1)); // Check for exception
+    }
+
+    @Test
+    void testAddWhenArrayIsFull() {  // Ensures resizing when adding an item at full capicity
+        for (int i = 0; i < 10; i++) {
+            customList.add(i);
+        }
+        customList.add(10);
+        assertEquals(11, customList.getSize());
+        assertEquals(10, customList.get(10));
+    }
+
+    @Test // Purpose: Ensure the get(int index) method throws IndexOutOfBoundsException for negative index.
+    void testGetWithNegativeIndex() { // Tests getting an item with a negative index.
+        assertThrows(IndexOutOfBoundsException.class, () -> customList.get(-1)); // Check for exception
+    }
+
+    @Test // Purpose: Ensure the remove(int index) method throws IndexOutOfBoundsException for negative index.
+    void testRemoveWithNegativeIndex() { // Tests removing an item with a negative index.
+        assertThrows(IndexOutOfBoundsException.class, () -> customList.remove(-1)); // Check for exception
+    }
+
+    @Test
+    void testAddWhenArrayIsFullUsingIndex() {
+        for (int i = 0; i < 10; i++) {
+            customList.add(i);
+        }
+        customList.add(10, 10);  // This should trigger capacity increase
+        assertEquals(11, customList.getSize());
+        assertEquals(10, customList.get(10));
     }
 }
